@@ -11,29 +11,34 @@ tips
 
 library(ggplot2)
 sp <- ggplot(tips, aes(x=total_bill, y=tip/total_bill)) + geom_point(shape=1)
-sp
+py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/no features'))
 
 # Divide by levels of "sex", in the vertical direction
-sp + facet_grid(sex ~ .)
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/vertical facet_grid'))
+sp1 <- sp + facet_grid(sex ~ .)
+sp1
+py$ggplotly(sp1, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/vertical facet_grid'))
 
 # Divide by levels of "sex", in the horizontal direction
-sp + facet_grid(. ~ sex)
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/horizontal facet_grid'))
+sp2 <- sp + facet_grid(. ~ sex)
+sp2
+py$ggplotly(sp2, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/horizontal facet_grid'))
 
 # Divide with "sex" vertical, "day" horizontal
-sp + facet_grid(sex ~ day)
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/2x4 facet_grid: "sex" vertical, "day" horizontal'))
+sp3 <- sp + facet_grid(sex ~ day)
+sp3
+py$ggplotly(sp3, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/2x4 facet_grid: "sex" vertical, "day" horizontal'))
 
 # Divide by day, going horizontally and wrapping with 2 columns
-sp + facet_wrap( ~ day, ncol=2)
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/facet_wrap'))
+sp4 <- sp + facet_wrap( ~ day, ncol=2)
+sp4
+py$ggplotly(sp4, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/facet_wrap'))
 
-sp + facet_grid(sex ~ day) +
-    theme(strip.text.x = element_text(size=8, angle=75),
-          strip.text.y = element_text(size=12, face="bold"),
-          strip.background = element_rect(colour="red", fill="#CCCCFF"))
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/facet label colors'))
+sp5 <- sp + facet_grid(sex ~ day) +
+  theme(strip.text.x = element_text(size=8, angle=75),
+        strip.text.y = element_text(size=12, face="bold"),
+        strip.background = element_rect(colour="red", fill="#CCCCFF"))
+sp5
+py$ggplotly(sp5, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/facet label colors'))
 
 mf_labeller <- function(var, value){
     value <- as.character(value)
@@ -44,8 +49,9 @@ mf_labeller <- function(var, value){
     return(value)
 }
 
-sp + facet_grid(. ~ sex, labeller=mf_labeller)
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/custom facet labels'))
+sp6 <- sp + facet_grid(. ~ sex, labeller=mf_labeller)
+sp6
+py$ggplotly(sp6, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/custom facet labels'))
 
 tips2 <- tips
 levels(tips2$sex)[levels(tips2$sex)=="Female"] <- "Woman"
@@ -62,13 +68,16 @@ sp2 + facet_grid(. ~ sex)
 hp <- ggplot(tips, aes(x=total_bill)) + geom_histogram(binwidth=2,colour="white")
 
 # Histogram of total_bill, divided by sex and smoker
-hp + facet_grid(sex ~ smoker)
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/histogram facets'))
+sp7 <- hp + facet_grid(sex ~ smoker)
+sp7
+py$ggplotly(sp7, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/histogram facets'))
 
 # Same as above, with scales="free_y"
-hp + facet_grid(sex ~ smoker, scales="free_y")
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/histogram facets with free_y'))
+sp8 <- hp + facet_grid(sex ~ smoker, scales="free_y")
+sp8
+py$ggplotly(sp8, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/histogram facets with free_y'))
 
 # With panels that have the same scaling, but different range (and therefore different physical sizes)
-hp + facet_grid(sex ~ smoker, scales="free", space="free")
-py$ggplotly(sp, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/histogram facets with scales=free, space=free'))
+sp9 <- hp + facet_grid(sex ~ smoker, scales="free", space="free")
+sp9
+py$ggplotly(sp9, kwargs=list(fileopt='overwrite', filename='R-Cookbook/facets/histogram facets with scales=free, space=free'))
